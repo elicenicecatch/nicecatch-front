@@ -42,7 +42,7 @@ main,header,section,nav,footer,aside,article,figure{display:block;}
 a{color:#333333;text-decoration:none;}
 button{cursor: pointer; color: #333333; background-color: transparent; outline: none; font-size: 16px;}
 caption{position: relative;}
-#wrap{min-width:1400px;}
+/* #wrap{min-width:1400px;} */
 
 /* Form */
 input[type=password],
