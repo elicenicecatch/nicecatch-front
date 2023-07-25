@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
 import './GamePage.scss';
+import { FaPaintBrush } from 'react-icons/fa';
+import { RiPaintFill } from 'react-icons/ri';
 
 const Game = () => {
     const [canvas, setCanvas] = useState();
     const [ctx, setCtx] = useState();
     const [isPainting, setIsPainting] = useState(false);
+    const [isFilling, setIsFilling] = useState(false);
     const [range, setRange] = useState(5);
     const [color, setColor] = useState('#000000');
+
+    const CANVAS_WIDTH = 600;
+    const CANVAS_HEIGHT = 600;
+
     const colorList = [
         '#ff3838',
         '#ffb8b8',
@@ -22,8 +29,8 @@ const Game = () => {
 
     useEffect(() => {
         const canvas = document.querySelector('canvas');
-        canvas.width = 800;
-        canvas.height = 800;
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
         setCanvas(canvas);
 
         const ctx = canvas.getContext('2d');
@@ -43,12 +50,15 @@ const Game = () => {
     };
 
     const startPainting = () => {
-        setIsPainting(true);
+        // 채우기 모드일때에는 그려지지 않도록 방지
+        if (!isFilling) {
+            setIsPainting(true);
+        }
     };
 
     const cancelPainting = () => {
-        setIsPainting(false);
         ctx.beginPath();
+        setIsPainting(false);
     };
 
     const onLineWidthChange = (e) => {
@@ -71,6 +81,33 @@ const Game = () => {
         setColor(colorValue);
     };
 
+    const onModeClick = (type) => {
+        if (type === 'fill') {
+            // 채우기 모드
+            setIsFilling(true);
+        } else {
+            // 그리기 모드
+            setIsFilling(false);
+            ctx.strokeStyle = color;
+        }
+    };
+
+    const onCanvasClick = () => {
+        if (isFilling) {
+            ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        }
+    };
+
+    const onDestroyClick = () => {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    };
+
+    const onEraserClick = () => {
+        ctx.strokeStyle = 'white';
+        setIsFilling(false);
+    };
+
     return (
         <>
             <canvas
@@ -78,25 +115,37 @@ const Game = () => {
                 onMouseDown={startPainting}
                 onMouseUp={cancelPainting}
                 onMouseLeave={cancelPainting}
-            ></canvas>
-            <input
-                type="range"
-                min={1}
-                max={10}
-                step={0.5}
-                value={range}
-                onChange={onLineWidthChange}
+                onClick={onCanvasClick}
             />
-            {colorList.map((v, i) => (
-                <span
-                    className="color_picker"
-                    key={i}
-                    style={{ backgroundColor: v }}
-                    data-color={v}
-                    onClick={onColorClick}
-                ></span>
-            ))}
-            <input type="color" value={color} onChange={onColorChange} />
+            <div>
+                <input
+                    type="range"
+                    min={1}
+                    max={10}
+                    step={0.5}
+                    value={range}
+                    onChange={onLineWidthChange}
+                />
+                <ul className="color_picker">
+                    {colorList.map((v, i) => (
+                        <li
+                            key={i}
+                            style={{ backgroundColor: v }}
+                            data-color={v}
+                            onClick={onColorClick}
+                        ></li>
+                    ))}
+                </ul>
+                <input type="color" value={color} onChange={onColorChange} />
+            </div>
+            <button onClick={() => onModeClick('draw')}>
+                <FaPaintBrush />
+            </button>
+            <button onClick={() => onModeClick('fill')}>
+                <RiPaintFill />
+            </button>
+            <button onClick={onDestroyClick}>초기화</button>
+            <button onClick={onEraserClick}>지우개</button>
         </>
     );
 };
