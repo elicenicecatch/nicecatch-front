@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import './GamePage.scss';
-import { FaPaintBrush } from 'react-icons/fa';
-import { RiPaintFill } from 'react-icons/ri';
+import { PiPaintBucketThin } from 'react-icons/pi';
+import { PiPencilThin } from 'react-icons/pi';
+import iconRevert from '../../../assets/images/icons/icon_revert.png';
+import iconEraser from '../../../assets/images/icons/icon_eraser.png';
 
 const Game = () => {
   const [canvas, setCanvas] = useState();
@@ -10,9 +12,10 @@ const Game = () => {
   const [isFilling, setIsFilling] = useState(false);
   const [range, setRange] = useState(5);
   const [color, setColor] = useState('#000000');
+  const [toggle, setToggle] = useState(true);
 
-  const CANVAS_WIDTH = 600;
-  const CANVAS_HEIGHT = 400;
+  const CANVAS_WIDTH = 686;
+  const CANVAS_HEIGHT = 516;
 
   const colorList = [
     '#ff3838',
@@ -46,7 +49,7 @@ const Game = () => {
       return;
     }
 
-    ctx.moveTo(event.offsetX, event.offsetY);
+    ctx?.moveTo(event.offsetX, event.offsetY);
   };
 
   const startPainting = () => {
@@ -62,8 +65,13 @@ const Game = () => {
   };
 
   const onLineWidthChange = (e) => {
-    setRange(e.target.value);
-    ctx.lineWidth = e.target.value;
+    const { value, style } = e.target;
+    console.log(value);
+    setRange(value);
+    style.background = `linear-gradient(to right, #333333 0%, #333333 ${
+      value * 10
+    }%, rgb(213, 212, 211) ${value * 10}%, rgb(213, 212, 211) 100%)`;
+    ctx.lineWidth = value;
   };
 
   const onColorChange = (e) => {
@@ -108,8 +116,12 @@ const Game = () => {
     setIsFilling(false);
   };
 
+  const onToggle = () => {
+    setToggle((curr) => !curr);
+  };
+
   return (
-    <>
+    <div className="canvas_box">
       <canvas
         onMouseMove={(e) => onMove(e)}
         onMouseDown={startPainting}
@@ -117,36 +129,74 @@ const Game = () => {
         onMouseLeave={cancelPainting}
         onClick={onCanvasClick}
       />
-      <div>
-        <input
-          type="range"
-          min={1}
-          max={10}
-          step={0.5}
-          value={range}
-          onChange={onLineWidthChange}
-        />
-        <ul className="color_picker">
-          {colorList.map((v, i) => (
-            <li
-              key={i}
-              style={{ backgroundColor: v }}
-              data-color={v}
-              onClick={onColorClick}
-            ></li>
-          ))}
+
+      <div className={toggle ? 'cntroll_box' : 'cntroll_box none'}>
+        <ul className="canvas_tool">
+          <li className="division">
+            <button onClick={onDestroyClick} title="초기화">
+              <img src={iconRevert} />
+            </button>
+          </li>
+          <li className="marright_10">
+            <button
+              className="tool_btn"
+              onClick={() => onModeClick('draw')}
+              title="펜"
+            >
+              <PiPencilThin />
+            </button>
+          </li>
+          <li className="division">
+            <div className="range_box">
+              <input
+                type="range"
+                min={1}
+                max={10}
+                step={0.5}
+                value={range}
+                onChange={onLineWidthChange}
+              />
+            </div>
+          </li>
+          <li className="division">
+            <button
+              className="tool_btn"
+              onClick={() => onModeClick('fill')}
+              title="채우기"
+            >
+              <PiPaintBucketThin />
+            </button>
+          </li>
+
+          <li>
+            <button onClick={onEraserClick} title="지우개">
+              <img src={iconEraser} />
+            </button>
+          </li>
         </ul>
-        <input type="color" value={color} onChange={onColorChange} />
+        <ul className="canvas_tool bottom">
+          <li className="division">
+            <input type="color" value={color} onChange={onColorChange} />
+          </li>
+          <li>
+            <ul className="color_picker">
+              {colorList.map((v, i) => (
+                <li
+                  key={i}
+                  style={{ backgroundColor: v }}
+                  data-color={v}
+                  onClick={onColorClick}
+                ></li>
+              ))}
+            </ul>
+          </li>
+        </ul>
       </div>
-      <button onClick={() => onModeClick('draw')}>
-        <FaPaintBrush />
-      </button>
-      <button onClick={() => onModeClick('fill')}>
-        <RiPaintFill />
-      </button>
-      <button onClick={onDestroyClick}>초기화</button>
-      <button onClick={onEraserClick}>지우개</button>
-    </>
+      <button
+        onClick={onToggle}
+        className={toggle ? 'toggle_btn' : 'toggle_btn none'}
+      ></button>
+    </div>
   );
 };
 export default Game;

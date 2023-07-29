@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import './ChatPage.scss';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { BsSendFill } from 'react-icons/bs';
 
 const Chat = ({ socket, username, room }) => {
+  const chatContainerRef = useRef();
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
@@ -20,6 +23,8 @@ const Chat = ({ socket, username, room }) => {
       await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage('');
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight + 152;
     }
   };
 
@@ -32,10 +37,10 @@ const Chat = ({ socket, username, room }) => {
   return (
     <div className="chat_window">
       <div className="chat_header">
-        <p>Live Chat</p>
+        <p>6</p>
       </div>
       <div className="chat_body">
-        <ScrollToBottom className="message_container">
+        <div className="message_container" ref={chatContainerRef}>
           {messageList.map((messageContent, i) => {
             return (
               <div
@@ -55,13 +60,13 @@ const Chat = ({ socket, username, room }) => {
               </div>
             );
           })}
-        </ScrollToBottom>
+        </div>
       </div>
       <div className="chat_footer">
         <input
           type="text"
           value={currentMessage}
-          placeholder="Hey..."
+          placeholder="메세지를 입력해주세요"
           onChange={(e) => {
             setCurrentMessage(e.target.value);
           }}
@@ -69,7 +74,9 @@ const Chat = ({ socket, username, room }) => {
             e.key === 'Enter' && sendMessage();
           }}
         />
-        <button onClick={sendMessage}>&#9658;</button>
+        <button onClick={sendMessage}>
+          <BsSendFill />
+        </button>
       </div>
     </div>
   );
