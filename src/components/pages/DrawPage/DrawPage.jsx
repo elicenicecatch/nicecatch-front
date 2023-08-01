@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import './GamePage.scss';
+import './DrawPage.scss';
 import { PiPaintBucketThin } from 'react-icons/pi';
 import { PiPencilThin } from 'react-icons/pi';
 import iconRevert from '../../../assets/images/icons/icon_revert.png';
 import iconEraser from '../../../assets/images/icons/icon_eraser.png';
 
-const Game = () => {
+const Draw = () => {
   const [canvas, setCanvas] = useState();
   const [ctx, setCtx] = useState();
   const [isPainting, setIsPainting] = useState(false);
@@ -199,4 +199,4 @@ const Game = () => {
     </div>
   );
 };
-export default Game;
+export default Draw;

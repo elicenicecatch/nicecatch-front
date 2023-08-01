@@ -1,25 +1,26 @@
 .canvas_box {
   position: relative;
   height: 100%;
+  width: calc(100% - 340px - 60px); /* 임시 width */
 
   canvas {
     display: block;
-    width: 686px;
+    width: 100%;
     height: 100%;
-    border: 1px solid #d8d8d8;
-    border-radius: 24px;
+    border: 0.1rem solid #d8d8d8;
+    border-radius: 2.4rem;
   }
   .toggle_btn {
     position: absolute;
-    width: 58px;
+    width: 5.8rem;
     left: 50%;
     transform: translateX(-50%);
-    top: 99px;
-    height: 14px;
+    top: 9.9rem;
+    height: 1.4rem;
     background: url('../../../assets/images/icons/icon_drop_up.png') no-repeat
-      center / 8px #fff;
-    border-radius: 0 0 3px 3px;
-    border: 1px solid #d8d8d8;
+      center / 0.8rem #fff;
+    border-radius: 0 0 0.3rem 0.3rem;
+    border: 0.1rem solid #d8d8d8;
     border-top: 0;
     transition: all 0.6s;
     &.none {
@@ -28,7 +29,7 @@
     }
   }
   .cntroll_box {
-    height: 99px;
+    height: 9.9rem;
     position: absolute;
     left: 50%;
     top: 0;
@@ -36,8 +37,8 @@
     overflow: hidden;
 
     background-color: #fff;
-    border-radius: 0 0 8px 8px;
-    border: 1px solid #d8d8d8;
+    border-radius: 0 0 0.8rem 0.8rem;
+    border: 0.1rem solid #d8d8d8;
     transition: all 0.6s;
 
     &.none {
@@ -48,27 +49,27 @@
     .canvas_tool {
       display: flex;
       align-items: center;
-      padding: 10px 20px;
+      padding: 1rem 2rem;
 
       &.bottom {
         background-color: #f2f2f2;
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 0.8rem 0.8rem;
       }
 
       .color_picker {
         li {
           display: inline-block;
-          margin: 3.5px;
-          width: 16px;
-          height: 16px;
+          margin: 0.35rem;
+          width: 1.6rem;
+          height: 1.6rem;
           border-radius: 50%;
           cursor: pointer;
         }
       }
       .division {
         position: relative;
-        padding-right: 10px;
-        margin-right: 10px;
+        padding-right: 1rem;
+        margin-right: 1rem;
         &::after {
           content: '';
           position: absolute;
@@ -76,26 +77,26 @@
           transform: translateY(-50%);
           right: 0;
           display: inline-block;
-          width: 1px;
-          height: 14px;
+          width: 0.1rem;
+          height: 1.4rem;
           background-color: rgba(0, 0, 0, 0.09);
         }
       }
 
       input[type='color'] {
-        width: 28px;
-        height: 24px;
+        width: 2.8rem;
+        height: 2.4rem;
       }
       .tool_btn > svg {
-        width: 26px;
-        height: 26px;
+        width: 2.6rem;
+        height: 2.6rem;
       }
 
       .range_box {
         input[type='range'] {
           -webkit-appearance: none;
-          width: 100px;
-          height: 6px;
+          width: 10rem;
+          height: 0.6rem;
           background: linear-gradient(
             to right,
             #333333 0%,
@@ -104,7 +105,7 @@
             rgb(213, 212, 211) 100%
           );
           cursor: pointer;
-          border-radius: 4px;
+          border-radius: 0.4rem;
           transition: background 450ms ease-in;
         }
         input[type='range']:focus {
@@ -112,10 +113,10 @@
         }
         input[type='range']::-webkit-slider-thumb {
           -webkit-appearance: none;
-          width: 18px;
-          height: 18px;
+          width: 1.8rem;
+          height: 1.8rem;
           background: #fff;
-          border: 1px solid #333;
+          border: 0.1rem solid #333;
           border-radius: 100%;
           cursor: pointer;
         }
