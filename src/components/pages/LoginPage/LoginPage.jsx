@@ -4,18 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import logoNaver from '/src/assets/images/logo_naver.png';
 import logoKakao from '/src/assets/images/logo_kakao.png';
 import logoGoogle from '/src/assets/images/logo_google.png';
-import io from 'socket.io-client';
-
-const socket = io.connect('http://localhost:3001');
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
 
-  const joinRoom = () => {
-    if (userID !== '' && room !== '') {
-      socket.emit('join_room', room);
-    }
+  const handleJoinClick = () => {
+    navigate('/room');
   };
 
   return (
@@ -40,14 +36,12 @@ const Login = () => {
             <label htmlFor="saveIdChk" className="id_chk_label ">
               이메일 저장
             </label>
-            <Link to = '/join'
-              className="join_btn"
-            >
+            <Link to="/join" className="join_btn">
               회원가입
             </Link>
           </div>
 
-          <button className="button" onClick={joinRoom}>
+          <button className="button" onClick={handleJoinClick}>
             입장하기
           </button>
         </form>
@@ -81,4 +75,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
