@@ -2,6 +2,9 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import GameLayout from '../../atoms/GameLayout/GameLayout';
 import './LoginPage.scss';
+import Draw from '../DrawPage/DrawPage';
+import Chat from '../ChatPage/ChatPage';
+import Quiz from '../QuizPage/QuizPage';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -9,6 +12,9 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const [showChat, setShowChat] = useState(false);
+  const [quizMode, setQuizMode] = useState(false);
+
+  const onQuiz = () => setQuizMode((prev) => !prev);
 
   const joinRoom = () => {
     if (username !== '' && room !== '') {
@@ -37,9 +43,15 @@ const Login = () => {
             }}
           />
           <button onClick={joinRoom}>입장하기</button>
+          <button onClick={onQuiz}>{quizMode ? '퀴즈게임' : '대전게임'}</button>
         </div>
       ) : (
-        <GameLayout socket={socket} username={username} room={room} />
+        <GameLayout socket={socket} username={username} room={room}>
+          <div className="game_box">
+            {quizMode ? <Quiz /> : <Draw />}
+            <Chat socket={socket} username={username} room={room} />
+          </div>
+        </GameLayout>
       )}
     </div>
   );

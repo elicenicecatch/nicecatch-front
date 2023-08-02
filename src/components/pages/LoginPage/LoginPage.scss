@@ -89,6 +89,7 @@
         text-align: center;
         .profile {
           position: relative;
+          display: inline-block;
           img {
             box-shadow: 0.4rem 0.4rem 1.2rem rgb(0, 15, 56, 0.2);
             border-radius: 50%;

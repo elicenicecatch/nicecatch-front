@@ -1,0 +1,15 @@
+.quiz_box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: calc(100% - 340px - 60px); /* 임시 width */
+  border: 0.1rem solid #d8d8d8;
+  border-radius: 2.4rem;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+  }
+}
