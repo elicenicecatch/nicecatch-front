@@ -1,46 +1,83 @@
-import { useState } from 'react';
+import '/src/components/pages/LoginPage/LoginPage.scss';
+import { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import logoNaver from '/src/assets/images/logo_naver.png';
+import logoKakao from '/src/assets/images/logo_kakao.png';
+import logoGoogle from '/src/assets/images/logo_google.png';
 import io from 'socket.io-client';
-import GameLayout from '../../atoms/GameLayout/GameLayout';
-import './LoginPage.scss';
 
 const socket = io.connect('http://localhost:3001');
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
-  const [showChat, setShowChat] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const joinRoom = () => {
-    if (username !== '' && room !== '') {
+    if (userID !== '' && room !== '') {
       socket.emit('join_room', room);
-      setShowChat(true);
     }
   };
 
   return (
-    <div className="home">
-      {!showChat ? (
-        <div className="join_chat_container">
-          <h3>Nice Catch</h3>
+    <div className="login">
+      <div className="login_container">
+        <h2>Nice Catch!</h2>
+        <form className="login_form">
           <input
-            type="text"
-            placeholder="닉네임을 입력해주세요"
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
+            type="email"
+            placeholder="이메일을 입력해주세요"
+            name="email"
+            ref={emailRef}
           />
           <input
-            type="text"
-            placeholder="방 아이디를 입력해주세요"
-            onChange={(e) => {
-              setRoom(e.target.value);
-            }}
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+            name="password"
+            ref={passwordRef}
           />
-          <button onClick={joinRoom}>입장하기</button>
+          <div className="login_features">
+            <input type="checkbox" className="id_chk hide " id="saveIdChk" />
+            <label htmlFor="saveIdChk" className="id_chk_label ">
+              이메일 저장
+            </label>
+            <Link to = '/join'
+              className="join_btn"
+            >
+              회원가입
+            </Link>
+          </div>
+
+          <button className="button" onClick={joinRoom}>
+            입장하기
+          </button>
+        </form>
+        <div className="sns_login">
+          <p>SNS 계정으로 로그인하기</p>
+          <ul className="sns_login_list">
+            <li>
+              <img
+                src={logoNaver}
+                onClick={() => alert('준비중인 기능입니다.')}
+                alt="네이버 로고"
+              />
+            </li>
+            <li>
+              <img
+                src={logoKakao}
+                onClick={() => alert('준비중인 기능입니다.')}
+                alt="카카오 로고"
+              />
+            </li>
+            <li>
+              <img
+                src={logoGoogle}
+                onClick={() => alert('준비중인 기능입니다.')}
+                alt="구글 로고"
+              />
+            </li>
+          </ul>
         </div>
-      ) : (
-        <GameLayout socket={socket} username={username} room={room} />
-      )}
+      </div>
     </div>
   );
 };

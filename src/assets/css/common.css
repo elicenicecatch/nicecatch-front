@@ -134,6 +134,7 @@ main {
     background: #f4f5f7 url('../images/bg@2x.png') no-repeat center top / 100%;
     color: #212121;
     font-family: 'Open Sans', sans-serif;
+    height: 100vh;
 }
 @media screen and (max-width:900px) {
     main{
