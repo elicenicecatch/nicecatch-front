@@ -1,0 +1,55 @@
+.navi__container {
+  width: 140rem;
+  height: 10.7rem;
+  background-color: white;
+  opacity: 0.5;
+  border-radius: 25px;
+}
+
+.navi_leftside {
+  width: 22.9rem;
+  height: 7.9rem;
+}
+
+.profile_character {
+  width: 7.9rem;
+  height: 7.9rem;
+  border-radius: 50px;
+  background-color: #ffde67;
+}
+
+.profile_name {
+  width: 7.4rem;
+  height: 2.9rem;
+}
+
+.profile_option {
+  width: 2rem;
+  height: 2rem;
+}
+
+.navi_rightside {
+  width: 42.5rem;
+  height: 4rem;
+  > .web_icons {
+    width: 10.2rem;
+    height: 3rem;
+  }
+  > .making_room_btn {
+    width: 14rem;
+    height: 4rem;
+    background-color: #242e47;
+    > p {
+        font-size: 2rem; 
+    }
+  }
+
+  > .logout_btn {
+    width: 14rem;
+    height: 4rem;
+    background-color: #f8667c;
+    > p {
+        font-size: 2rem; 
+    }
+  }
+}
