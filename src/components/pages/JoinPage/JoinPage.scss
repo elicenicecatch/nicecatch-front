@@ -37,7 +37,6 @@
     margin-top: 1rem;
   }
 
-  input[type='text'],
   input[type='email'],
   input[type='password'] {
     width: 100%;
@@ -86,37 +85,3 @@
   }
 }
 
-.profile_box {
-  align-self: center;
-  width: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-
-  .profile_img {
-    width: 10rem;
-    height: 10rem;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-  }
-  .random_button {
-    width: 3rem;
-    height: 3rem;
-    background: #4F6FFF;
-    background-position: center;
-    background-size: 1.8rem;
-    background-repeat: no-repeat;
-    background-image: url(/src/assets/images/icons/random.png);
-    border-radius: 50%;
-    cursor: pointer;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  .random_button:hover {
-    background-color:  #5d7bff;
-  }
-}

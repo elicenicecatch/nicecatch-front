@@ -1,0 +1,43 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_img_box {
+  width: 10rem;
+  align-self: center;
+  position: relative;
+  margin: 1rem 0;
+
+  .profile_img {
+    width: 10rem;
+    height: 10rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+  }
+  .random_button {
+    width: 3rem;
+    height: 3rem;
+    background: #4f6fff;
+    background-position: center;
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+    background-image: url(/src/assets/images/icons/random.png);
+    border-radius: 50%;
+    cursor: pointer;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .random_button:hover {
+    background-color: #5d7bff;
+  }
+}
+
+input[type='text']{
+    width: 100%;
+    height: 5rem;
+    border-radius: 0.5rem;
+}

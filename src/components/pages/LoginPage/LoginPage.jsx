@@ -33,7 +33,7 @@ const Login = () => {
           />
           <div className="login_features">
             <input type="checkbox" className="id_chk hide " id="saveIdChk" />
-            <label htmlFor="saveIdChk" className="id_chk_label ">
+            <label htmlFor="saveIdChk" className="id_chk_label">
               이메일 저장
             </label>
             <Link to="/join" className="join_btn">
