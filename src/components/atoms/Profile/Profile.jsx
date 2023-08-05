@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import adjectives from './adjectives';
 import nicknames from './nicknames';
 import './Profile.scss';
 
-const Profile = () => {
+const Profile = ({ setNickname, nickname, nicknameRef }) => {
   const profileImages = [];
   for (let i = 1; i <= 24; i++) {
     profileImages.push(`profile_${i}.png`);
@@ -15,8 +15,8 @@ const Profile = () => {
   const getRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * profileImages.length);
     const selectedImage = profileImages[randomIndex];
-    setRandomImage(selectedImage);
 
+    setRandomImage(selectedImage);
     getRandomNickname(randomIndex);
   };
 
@@ -24,12 +24,13 @@ const Profile = () => {
     const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
     const selectedAdjective = adjectives[randomAdjectiveIndex];
     const selectedNickname = nicknames[randomIndex];
-
     const randomNickname = `${selectedAdjective} ${selectedNickname}`;
+    
     setRandomNickname(randomNickname);
+    setNickname(randomNickname);
   };
 
-  useState(() => {
+  useEffect(() => {
     getRandomImage();
   }, []);
 
@@ -48,10 +49,12 @@ const Profile = () => {
       <div className="input_box">
         <input
           type="text"
-          placeholder={randomNickname}
-          value={randomNickname}
+          value={nickname}
           name="nickname"
           id="nickname"
+          maxLength={10}
+          onChange={(e) => setNickname(e.target.value)}
+          ref={nicknameRef}
         />
       </div>
     </div>

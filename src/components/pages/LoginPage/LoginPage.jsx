@@ -1,9 +1,11 @@
 import '/src/components/pages/LoginPage/LoginPage.scss';
-import { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+
 import logoNaver from '/src/assets/images/logo_naver.png';
 import logoKakao from '/src/assets/images/logo_kakao.png';
 import logoGoogle from '/src/assets/images/logo_google.png';
+
+import { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const emailRef = useRef();
@@ -41,7 +43,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <button className="button" onClick={handleJoinClick}>
+          <button className="button" >
             입장하기
           </button>
         </form>
